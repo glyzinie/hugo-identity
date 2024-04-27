@@ -1,0 +1,46 @@
+/* Icon */
+.icon {
+	@include icon; // Assuming this mixin provides common icon styles
+	position: relative;
+	border-bottom: none;
+
+	> .label {
+		display: none;
+	}
+
+	&:before {
+		line-height: inherit;
+	}
+
+	&.solid:before {
+		font-weight: 900;
+	}
+
+	&.brands:before {
+		font-family: 'Font Awesome 6 Brands';
+	}
+}
+
+@mixin icon-alt($content: false, $link: false) {
+	@include icon($content);
+	$size: _size(border-width) * 1.25;
+
+	&:before {
+		color: _palette(bg);
+		text-shadow: $size 0 0 _palette(border),
+			-$size 0 0 _palette(border),
+			0 $size 0 _palette(border),
+			0 -$size 0 _palette(border);
+	}
+
+	@if $link {
+		&:hover {
+			&:before {
+				text-shadow: $size 0 0 _palette(highlight),
+					-$size 0 0 _palette(highlight),
+					0 $size 0 _palette(highlight),
+					0 -$size 0 _palette(highlight);
+			}
+		}
+	}
+}

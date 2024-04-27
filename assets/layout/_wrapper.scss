@@ -1,0 +1,26 @@
+/* Wrapper */
+
+	#wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-direction: column;
+		perspective: 1000px;
+		position: relative;
+		min-height: 100%;
+		padding: _size(element-margin);
+		z-index: 2;
+
+		> * {
+			z-index: 1;
+		}
+
+		&:before {
+			content: '';
+			display: block;
+		}
+
+		@include breakpoint('<=xxsmall') {
+			padding: (_size(element-margin) * 0.5);
+		}
+	}

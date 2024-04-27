@@ -1,0 +1,145 @@
+/// Removes a specific item from a list.
+/// @author Hugo Giraudel
+/// @param {list} $list List.
+/// @param {integer} $index Index.
+/// @return {list} Updated list.
+@function remove-nth($list, $index) {
+
+	$result: null;
+
+	@if type-of($index) != number {
+		@warn "$index: #{quote($index)} is not a number for `remove-nth`.";
+	}
+	@else if $index == 0 {
+		@warn "List index 0 must be a non-zero integer for `remove-nth`.";
+	}
+	@else if abs($index) > length($list) {
+		@warn "List index is #{$index} but list is only #{length($list)} item long for `remove-nth`.";
+	}
+	@else {
+
+		$result: ();
+		$index: if($index < 0, length($list) + $index + 1, $index);
+
+		@for $i from 1 through length($list) {
+
+			@if $i != $index {
+				$result: append($result, nth($list, $i));
+			}
+
+		}
+
+	}
+
+	@return $result;
+
+}
+
+/// Gets a value from a map.
+/// @author Hugo Giraudel
+/// @param {map} $map Map.
+/// @param {string} $keys Key(s).
+/// @return {string} Value.
+@function val($map, $keys...) {
+
+	@if nth($keys, 1) == null {
+		$keys: remove-nth($keys, 1);
+	}
+
+	@each $key in $keys {
+		$map: map-get($map, $key);
+	}
+
+	@return $map;
+
+}
+
+/// Gets a duration value.
+/// @param {string} $keys Key(s).
+/// @return {string} Value.
+@function _duration($keys...) {
+	@return val($duration, $keys...);
+}
+
+/// Gets a font value.
+/// @param {string} $keys Key(s).
+/// @return {string} Value.
+/// Removes a specific item from a list.
+/// @param {list} $list List.
+/// @param {integer} $index Index.
+/// @return {list} Updated list.
+@function remove-nth($list, $index) {
+    $result: ();
+
+    @if type-of($index) != number {
+        @warn "$index: #{quote($index)} is not a number for `remove-nth`.";
+        @return $list; // Return original list if index is not a number
+    }
+
+    @if $index == 0 {
+        @warn "List index 0 must be a non-zero integer for `remove-nth`.";
+        @return $list; // Return original list if index is zero
+    }
+
+    $index: if($index < 0, length($list) + $index + 1, $index);
+
+    @if abs($index) > length($list) {
+        @warn "List index is #{$index} but list is only #{length($list)} items long for `remove-nth`.";
+        @return $list; // Return original list if index out of bounds
+    }
+
+    @for $i from 1 through length($list) {
+        @if $i != $index {
+            $result: append($result, nth($list, $i));
+        }
+    }
+
+    @return $result;
+}
+
+/// Gets a value from a map by iterating through nested keys.
+/// @param {map} $map Map.
+/// @param {list} $keys Key(s).
+/// @return {dynamic} Value.
+@function val($map, $keys...) {
+    @each $key in $keys {
+        $map: map-get($map, $key);
+        @if $map == null {
+            @warn "Key `#{$key}` not found in map.";
+            @return null; // Return null if any key is not found
+        }
+    }
+
+    @return $map;
+}
+
+/// Function template for fetching values from global configuration maps.
+/// @param {list} $keys Key(s).
+/// @return {dynamic} Value.
+@function _fetch($map, $keys...) {
+    @return val($map, $keys...);
+}
+
+// Examples of specific configuration fetching functions
+@function _duration($keys...) { @return _fetch($duration, $keys...); }
+@function _font($keys...) { @return _fetch($font, $keys...); }
+@function _misc($keys...) { @return _fetch($misc, $keys...); }
+@function _palette($keys...) { @return _fetch($palette, $keys...); }
+@function _size($keys...) { @return _fetch($size, $keys...); }
+
+/// Replaces all occurrences of a substring within a string.
+/// @param {string} $string String.
+/// @param {string} $search Substring.
+/// @param {string} $replace Replacement string.
+/// @return {string} Updated string.
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+
+    @if $index {
+        $before: str-slice($string, 1, $index - 1);
+        $after: str-slice($string, $index + str-length($search));
+        @return $before + $replace + str-replace($after, $search, $replace);
+    }
+
+    @return $string;
+}

@@ -1,0 +1,49 @@
+/// Makes an element's pseudoelement a FontAwesome icon.
+/// @param {string} $content Optional content value to use.
+/// @param {string} $category Optional category to use (regular, brands, solid).
+/// @param {string} $where Optional pseudoelement to target (before or after).
+@mixin icon($content: false, $category: 'regular', $where: 'before') {
+	text-decoration: none;
+	&:#{$where} {
+		content: if($content, $content, null);
+		display: inline-block;
+		font-style: normal;
+		font-variant: normal;
+		text-rendering: auto;
+		line-height: 1;
+		text-transform: none !important;
+		font-family: 'Font Awesome 6 Free';
+		font-weight: if($category == 'solid', 900, if($category == 'brands', 'normal', 400));
+		@if $category == 'brands' {
+			font-family: 'Font Awesome 6 Brands';
+		}
+	}
+}
+
+/// Applies padding to an element, taking the current element-margin value into account.
+/// @param {number} $tb Top/bottom padding (expected in a unit like 'em' or 'px').
+/// @param {number} $lr Left/right padding (expected in a unit like 'em' or 'px').
+/// @param {list} $pad Optional extra padding (in the following order: top, right, bottom, left).
+/// @param {bool} $important If true, adds !important.
+@mixin padding($tb, $lr, $pad: (0, 0, 0, 0), $important: false) {
+	$suffix: if($important, "!important", "");
+	$unit: unit($tb); // Assumes unit is the same for all inputs and consistent across usage.
+
+	$top: $tb + nth($pad, 1);
+	$right: $lr + nth($pad, 2);
+	$bottom: $tb - _size("element-margin") + nth($pad, 3);
+	$left: $lr + nth($pad, 4);
+
+	padding: $top $right $bottom $left #{$suffix};
+}
+
+/// Encodes a SVG data URL so it doesn't break in IE.
+/// @param {string} $svg SVG data URL.
+/// @return {string} Encoded SVG data URL.
+@function svg-url($svg) {
+    $replacements: ('"': '\'', '%': '%25', '<': '%3C', '>': '%3E', '&': '%26', '#': '%23', '{': '%7B', '}': '%7D', ';': '%3B');
+    @each $key, $value in $replacements {
+        $svg: str-replace($svg, $key, $value);
+    }
+    @return url("data:image/svg+xml;charset=utf8,#{$svg}");
+}

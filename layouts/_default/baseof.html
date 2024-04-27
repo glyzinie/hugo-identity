@@ -1,0 +1,63 @@
+{{ $fontawesome := "latest" }}
+{{ $twemoji := "latest" }}
+{{ $cloudinary := default "z2" .Site.Params.Cloudinary }}
+{{ $avatar := default "aynfj6ugkvphnnu0plsj" .Site.Params.Avatar }}
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-dns-prefetch-control" content="on">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+	<link rel="preconnect" href="https://res.cloudinary.com">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/webfonts/fa-brands-400.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/webfonts/fa-solid-900.woff2" as="font" type="font/woff2">
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/css/fontawesome.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/css/solid.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/css/brands.min.css">
+	<style>{{ with resources.Get "main.scss" | toCSS | minify }}{{ .Content | safeCSS }}{{ end }}</style>
+
+	<title>{{ block "title" . }}{{ end }}{{ .Site.Title }}</title>
+	<meta name="description" content="{{ .Site.Params.Description }}">
+	<link rel="canonical" href="{{ .Permalink }}">
+
+	{{ with .Site.Params.Emoji }}
+	<link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/jdecked/twemoji@{{ $twemoji }}/assets/72x72/{{ . }}.png">
+	<link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/jdecked/twemoji@{{ $twemoji }}/assets/svg/{{ . }}.svg">
+	{{ end }}
+
+	<meta name="description" content="{{ .Site.Params.Description }}">
+	<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+	<meta property="og:title" content="{{ block "title" . }}{{ end }}{{ .Site.Title }}">
+	<meta property="og:description" content="{{ .Site.Params.Description }}">
+	<meta property="og:url" content="{{ .Permalink }}">
+	<meta property="og:image" content="https://res.cloudinary.com/{{ $cloudinary }}/f_auto,q_auto/{{ $avatar }}">
+	<meta name="twitter:card" content="summary">
+
+	{{ partial "head.html" . }}
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+
+	<!-- Main -->
+	<section id="profile">
+		{{ block "main" . }}{{ end }}
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<ul class="copyright">
+			<li>&copy; {{ with .Site.Copyright }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}</li>
+		</ul>
+	</footer>
+
+</div>
+<!-- Scripts -->
+<script>window.addEventListener('load', () => document.body.classList.remove('is-preload'));</script>
+</body>
+</html>

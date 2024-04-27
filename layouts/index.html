@@ -1,0 +1,21 @@
+{{ define "title" }}{{ if not .IsHome }}{{ .Title }} - {{ end }}{{ end }}
+
+{{ define "main" }}
+<header>
+	<span class="avatar">
+		{{ $cloudinary := default "z2" .Site.Params.Cloudinary }}
+		{{ $avatar := default "aynfj6ugkvphnnu0plsj" .Site.Params.Avatar }}
+		<img alt="Avatar" width="122" height="122" src="https://res.cloudinary.com/{{ $cloudinary }}/f_auto,q_auto,w_122/{{ $avatar }}" srcset="https://res.cloudinary.com/{{ $cloudinary }}/f_auto,q_auto,w_122/{{ $avatar }} 1x, https://res.cloudinary.com/{{ $cloudinary }}/f_auto,q_auto,w_244/{{ $avatar }} 2x, https://res.cloudinary.com/{{ $cloudinary }}/f_auto,q_auto,w_366/{{ $avatar }} 3x">
+	</span>
+	<h1>{{ .Site.Params.Author }}</h1>
+	{{ with .Site.Params.Description }}<p>{{ . }}</p>{{ end }}
+</header>
+<main>
+	{{ .Content }}
+	<ul class="icons">
+		{{ range .Site.Params.social }}
+		<li><a rel="me" href="{{ .url }}" class="icon {{ .icon }}">{{ .name }}</a></li>
+		{{ end }}
+	</ul>
+</main>
+{{ end }}
