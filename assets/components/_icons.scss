@@ -9,41 +9,36 @@ ul.icons {
 		display: inline-block;
 		padding: 0.675em 0.5em;
 
-		a {
-			@include icon-alt(false, true);
-			position: relative;
-			display: block;
+		a.icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			width: 3.75em;
 			height: 3.75em;
 			border-radius: 100%;
 			border: solid _size(border-width) _palette(border);
-			line-height: 3.75em;
-			overflow: hidden;
-			text-align: center;
-			text-indent: 3.75em;
-			white-space: nowrap;
 
-			&:before {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: inherit;
-				height: inherit;
-				font-size: 1.85rem;
-				line-height: inherit;
-				text-align: center;
-				text-indent: 0;
+			.icon-svg {
+				width: 1.85rem;
+				height: 1.85rem;
 			}
 
-			&:hover {
+			&:hover, &:focus-visible {
+				color: _palette(highlight);
 				border-color: _palette(highlight);
+			}
+
+			&:focus-visible {
+				outline: 2px solid _palette(highlight);
+				outline-offset: 3px;
 			}
 		}
 	}
 
 	@include breakpoint('<=xsmall') {
-		li a:before {
-			font-size: 1.5rem;
+		li a.icon .icon-svg {
+			width: 1.5rem;
+			height: 1.5rem;
 		}
 	}
 }

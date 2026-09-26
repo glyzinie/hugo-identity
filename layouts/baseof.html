@@ -1,4 +1,3 @@
-{{ $fontawesome := "7" }}
 {{ $twemoji := "latest" }}
 {{ $cloudinary := default "z2" .Site.Params.Cloudinary }}
 {{ $avatar := default "aynfj6ugkvphnnu0plsj" .Site.Params.Avatar }}
@@ -12,13 +11,8 @@
 	<link rel="preconnect" href="https://res.cloudinary.com">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/css/fontawesome.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/css/solid.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/css/brands.min.css">
 	<style>{{ with resources.Get "main.scss" | toCSS (dict "transpiler" "dartsass") | minify }}{{ .Content | safeCSS }}{{ end }}</style>
 
 	<title>{{ block "title" . }}{{ end }}{{ .Site.Title }}</title>

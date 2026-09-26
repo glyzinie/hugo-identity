@@ -27,13 +27,6 @@ a {
 	color: inherit;
 	text-decoration: none;
 
-	&:before {
-		transition: (
-			color #{_duration(transition)} ease,
-			text-shadow #{_duration(transition)} ease
-		);
-	}
-
 	&:hover {
 		color: _palette(highlight);
 	}

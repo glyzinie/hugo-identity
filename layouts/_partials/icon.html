@@ -1,0 +1,12 @@
+{{- $name := strings.TrimSpace (printf "%v" .) -}}
+{{- if not (findRE `^(simple-icons|lucide)/[a-z0-9]+(-[a-z0-9]+)*$` $name) -}}
+	{{- errorf "Invalid icon %q: use simple-icons/<name> or lucide/<name> instead of Font Awesome classes. See the theme README for available icons." $name -}}
+{{- else -}}
+	{{- $path := printf "icons/%s.svg" $name -}}
+	{{- with resources.Get $path -}}
+		{{- $library := index (split $name "/") 0 -}}
+		<span class="icon-svg icon-svg--{{ $library }}" aria-hidden="true">{{ .Content | safeHTML }}</span>
+	{{- else -}}
+		{{- errorf "Icon %q was not found: add assets/%s to your site or choose an icon listed in the theme README." $name $path -}}
+	{{- end -}}
+{{- end -}}

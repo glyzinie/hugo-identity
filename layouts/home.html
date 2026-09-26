@@ -14,7 +14,12 @@
 	{{ .Content }}
 	<ul class="icons">
 		{{ range .Site.Params.social }}
-		<li><a rel="me" href="{{ .url }}" class="icon {{ .icon }}">{{ .name }}</a></li>
+		<li>
+			<a rel="me" href="{{ .url }}"{{ if .icon }} class="icon" title="{{ .name }}"{{ end }}>
+				{{- with .icon }}{{ partial "icon.html" . }}{{ end -}}
+				<span{{ if .icon }} class="label"{{ end }}>{{ .name }}</span>
+			</a>
+		</li>
 		{{ end }}
 	</ul>
 </main>

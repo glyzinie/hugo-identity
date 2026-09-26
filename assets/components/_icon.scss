@@ -1,22 +1,34 @@
-/* Icon */
+/* Inline SVG icons. */
+.icon-svg {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	vertical-align: -0.125em;
+
+	> svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	&--simple-icons > svg {
+		fill: currentColor;
+	}
+}
+
 .icon {
-	@include icon;
 	position: relative;
 	border-bottom: none;
 
 	> .label {
-		display: none;
-	}
-
-	&:before {
-		line-height: inherit;
-	}
-
-	&.solid:before {
-		font-weight: 900;
-	}
-
-	&.brands:before {
-		font-family: 'Font Awesome 7 Brands';
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
 	}
 }
