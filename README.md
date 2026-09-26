@@ -21,3 +21,25 @@ in the base layout. The `toCSS` call explicitly selects the `dartsass` transpile
 Load configuration and helpers before base, component, and layout styles.
 Keep shared functions and mixins in `libs` so components do not depend on
 each other's import order. Preserve selector order when refactoring styles.
+
+## Icons
+
+The theme loads Font Awesome 7 Free (Solid and Brands) from jsDelivr.
+The CDN URLs follow the latest 7.x release.
+Set each social link's `icon` to the theme's `solid` or `brands` modifier
+followed by a Font Awesome icon name. Existing settings keep the same format:
+
+```toml
+[[params.social]]
+name = "GitHub"
+url = "https://github.com/example"
+icon = "brands fa-github"
+
+[[params.social]]
+name = "Email"
+url = "mailto:hello@example.com"
+icon = "solid fa-envelope"
+```
+
+The icon mixin reads Font Awesome 7's `--fa` custom property for the glyph;
+an explicit `$content` value still overrides it for custom icons.

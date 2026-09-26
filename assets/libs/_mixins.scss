@@ -4,18 +4,23 @@
 	text-decoration: none;
 
 	&:#{$where} {
-		content: if($content, $content, null);
+		// Font Awesome 7 provides the glyph through the --fa custom property.
+		content: if($content, $content, var(--fa)) / '';
 		display: inline-block;
 		font-style: normal;
 		font-variant: normal;
 		text-rendering: auto;
 		line-height: 1;
 		text-transform: none !important;
-		font-family: 'Font Awesome 6 Free';
-		font-weight: if($category == 'solid', 900, if($category == 'brands', 'normal', 400));
+		font-family: 'Font Awesome 7 Free';
+		font-weight: if($category == 'solid', 900, 400);
 
 		@if $category == 'brands' {
-			font-family: 'Font Awesome 6 Brands';
+			font-family: 'Font Awesome 7 Brands';
+		}
+
+		@supports not (content: '' / '') {
+			content: if($content, $content, var(--fa));
 		}
 	}
 }
