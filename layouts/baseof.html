@@ -19,10 +19,9 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/css/fontawesome.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/css/solid.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{ $fontawesome }}/css/brands.min.css">
-	<style>{{ with resources.Get "main.scss" | toCSS | minify }}{{ .Content | safeCSS }}{{ end }}</style>
+	<style>{{ with resources.Get "main.scss" | toCSS (dict "transpiler" "dartsass") | minify }}{{ .Content | safeCSS }}{{ end }}</style>
 
 	<title>{{ block "title" . }}{{ end }}{{ .Site.Title }}</title>
-	<meta name="description" content="{{ .Site.Params.Description }}">
 	<link rel="canonical" href="{{ .Permalink }}">
 
 	{{ with .Site.Params.Emoji }}

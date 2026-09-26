@@ -1,6 +1,14 @@
 # hugo-identity
 
+## Requirements
+
+This theme requires Hugo 0.146.0 or later and [Dart Sass](https://gohugo.io/functions/css/sass/#dart-sass).
+Ensure the standalone Dart Sass `sass` executable is on `PATH` when building locally or in CI.
+
 ## Stylesheets
+
+Hugo compiles `assets/main.scss` with Dart Sass and inlines the minified CSS
+in the base layout. The `toCSS` call explicitly selects the `dartsass` transpiler.
 
 - `assets/libs/_vars.scss`: colors, fonts, sizes, and animation durations.
 - `assets/libs/_functions.scss`: accessors for the configuration maps.
