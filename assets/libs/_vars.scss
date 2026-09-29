@@ -1,14 +1,14 @@
 // Misc.
 $misc: (
 	z-index-base:		10000
-);
+) !default;
 
 // Duration.
 $duration: (
 	transition:			0.2s,
 	bg:					1.75s,
 	main:				1s
-);
+) !default;
 
 // Size.
 $size: (
@@ -17,14 +17,14 @@ $size: (
 	element-height:		2.75em,
 	element-margin:		1.5em,
 	letter-spacing:		0.2em
-);
+) !default;
 
 // Font.
 $font: (
 	family:				('Source Sans Pro', Helvetica, sans-serif),
 	family-fixed:		('Courier New', monospace),
 	weight:				300
-);
+) !default;
 
 // Palette.
 $palette: (
@@ -38,4 +38,4 @@ $palette: (
 	accent1:			#7cecb4,
 	accent2:			#6c8dff,
 	highlight:			#CC6ABF
-);
+) !default;

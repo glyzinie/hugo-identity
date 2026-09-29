@@ -18,9 +18,19 @@ in the base layout. The `toCSS` call explicitly selects the `dartsass` transpile
 - `assets/components/`: icon and social link selectors.
 - `assets/layout/`: wrapper, profile, and footer selectors.
 
-Load configuration and helpers before base, component, and layout styles.
-Keep shared functions and mixins in `libs` so components do not depend on
-each other's import order. Preserve selector order when refactoring styles.
+Each stylesheet loads its configuration and helpers explicitly with `@use`.
+Keep shared functions and mixins in `libs`, and preserve the CSS module order
+in `main.scss` when refactoring styles.
+
+Custom SCSS should load the modules it uses, for example `@use 'libs/functions'`
+and `@use 'libs/breakpoints'`, then call `functions.palette(highlight)` or
+`@include breakpoints.breakpoint('<=xsmall')`. The old `_duration`, `_font`,
+`_misc`, `_palette`, and `_size` helpers are now public module functions named
+`duration`, `font`, `misc`, `palette`, and `size`.
+
+The configuration maps in `libs/vars` and the `$breakpoints` map in
+`libs/breakpoints` accept `@use ... with (...)` configuration. Configure these
+modules before loading `main.scss` or any stylesheets that depend on them.
 
 ## Icons
 

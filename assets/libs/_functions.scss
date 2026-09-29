@@ -1,8 +1,11 @@
+@use 'sass:map';
+@use 'vars';
+
 /// Gets a value from a configuration map, including nested keys.
 /// @author Hugo Giraudel
 @function val($map, $keys...) {
 	@each $key in $keys {
-		$map: map-get($map, $key);
+		$map: map.get($map, $key);
 
 		@if $map == null {
 			@warn "Key `#{$key}` not found in map.";
@@ -13,22 +16,22 @@
 	@return $map;
 }
 
-@function _duration($keys...) {
-	@return val($duration, $keys...);
+@function duration($keys...) {
+	@return val(vars.$duration, $keys...);
 }
 
-@function _font($keys...) {
-	@return val($font, $keys...);
+@function font($keys...) {
+	@return val(vars.$font, $keys...);
 }
 
-@function _misc($keys...) {
-	@return val($misc, $keys...);
+@function misc($keys...) {
+	@return val(vars.$misc, $keys...);
 }
 
-@function _palette($keys...) {
-	@return val($palette, $keys...);
+@function palette($keys...) {
+	@return val(vars.$palette, $keys...);
 }
 
-@function _size($keys...) {
-	@return val($size, $keys...);
+@function size($keys...) {
+	@return val(vars.$size, $keys...);
 }

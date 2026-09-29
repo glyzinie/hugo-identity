@@ -1,18 +1,12 @@
-// Configuration and helpers (no CSS output).
-@import 'libs/vars';
-@import 'libs/functions';
-@import 'libs/mixins';
-@import 'libs/breakpoints';
-
 // Base.
-@import 'base/page';
-@import 'base/typography';
+@use 'base/page';
+@use 'base/typography';
 
 // Components.
-@import 'components/icon';
-@import 'components/icons';
+@use 'components/icon';
+@use 'components/icons';
 
 // Layout.
-@import 'layout/wrapper';
-@import 'layout/profile';
-@import 'layout/footer';
+@use 'layout/wrapper';
+@use 'layout/profile';
+@use 'layout/footer';

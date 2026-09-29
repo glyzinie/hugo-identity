@@ -1,15 +1,19 @@
+@use '../libs/breakpoints';
+@use '../libs/functions';
+@use '../libs/mixins';
+
 /* Main */
 
 #profile {
 	transform-origin: 50% 50%;
 	transform: rotateX(0deg);
 	transition: (
-		opacity #{_duration(main)} ease,
-		transform #{_duration(main)} ease
+		opacity #{functions.duration(main)} ease,
+		transform #{functions.duration(main)} ease
 	);
-	@include padding(4.5em, 3em);
-	background: _palette(bg);
-	border-radius: _size(border-radius);
+	@include mixins.padding(4.5em, 3em);
+	background: functions.palette(bg);
+	border-radius: functions.size(border-radius);
 	cursor: default;
 	max-width: 100%;
 	opacity: 0.95;
@@ -20,13 +24,13 @@
 	.avatar {
 		position: relative;
 		display: block;
-		margin-bottom: _size(element-margin);
+		margin-bottom: functions.size(element-margin);
 
 		img {
 			display: block;
 			margin: 0 auto;
 			border-radius: 100%;
-			box-shadow: 0 0 0 1.5em _palette(bg);
+			box-shadow: 0 0 0 1.5em functions.palette(bg);
 		}
 
 		&:before {
@@ -36,14 +40,14 @@
 			top: 50%;
 			left: -3em;
 			width: calc(100% + 6em);
-			height: _size(border-width);
+			height: functions.size(border-width);
 			z-index: -1;
-			background: _palette(border);
+			background: functions.palette(border);
 		}
 	}
 
-	@include breakpoint('<=xsmall') {
-		@include padding(4em, 2em);
+	@include breakpoints.breakpoint('<=xsmall') {
+		@include mixins.padding(4em, 2em);
 		width: 100%;
 
 		.avatar {

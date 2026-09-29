@@ -1,3 +1,6 @@
+@use '../libs/breakpoints';
+@use '../libs/functions';
+
 /* Icons */
 ul.icons {
 	cursor: default;
@@ -16,7 +19,7 @@ ul.icons {
 			width: 3.75em;
 			height: 3.75em;
 			border-radius: 100%;
-			border: solid _size(border-width) _palette(border);
+			border: solid functions.size(border-width) functions.palette(border);
 
 			.icon-svg {
 				width: 1.85rem;
@@ -24,18 +27,18 @@ ul.icons {
 			}
 
 			&:hover, &:focus-visible {
-				color: _palette(highlight);
-				border-color: _palette(highlight);
+				color: functions.palette(highlight);
+				border-color: functions.palette(highlight);
 			}
 
 			&:focus-visible {
-				outline: 2px solid _palette(highlight);
+				outline: 2px solid functions.palette(highlight);
 				outline-offset: 3px;
 			}
 		}
 	}
 
-	@include breakpoint('<=xsmall') {
+	@include breakpoints.breakpoint('<=xsmall') {
 		li a.icon .icon-svg {
 			width: 1.5rem;
 			height: 1.5rem;

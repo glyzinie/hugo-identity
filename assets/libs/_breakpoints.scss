@@ -1,3 +1,8 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+
 // Inclusive width ranges. A null bound leaves that side unrestricted.
 $breakpoints: (
 	xlarge: (1281px, 1680px),
@@ -6,7 +11,7 @@ $breakpoints: (
 	small: (481px, 736px),
 	xsmall: (361px, 480px),
 	xxsmall: (null, 360px)
-);
+) !default;
 
 /// Replaces the breakpoint map with custom ranges or media query strings.
 @mixin breakpoints($x: ()) {
@@ -27,22 +32,26 @@ $breakpoints: (
 
 	// Match two-character operators before their one-character prefixes.
 	@each $candidate in ('>=', '<=', '>', '<', '!') {
-		@if $operator == '' and str-slice($query, 1, str-length($candidate)) == $candidate {
+		@if $operator == '' and string.slice($query, 1, string.length($candidate)) == $candidate {
 			$operator: $candidate;
-			$name: str-slice($query, str-length($candidate) + 1);
+			$name: string.slice($query, string.length($candidate) + 1);
 		}
 	}
 
-	@if $name and map-has-key($breakpoints, $name) {
-		$range: map-get($breakpoints, $name);
+	@if $name and map.has-key($breakpoints, $name) {
+		$range: map.get($breakpoints, $name);
 
-		@if type-of($range) == 'list' {
-			$min: nth($range, 1);
-			$max: nth($range, 2);
+		@if meta.type-of($range) == 'list' {
+			$min: list.nth($range, 1);
+			$max: list.nth($range, 2);
 
 			@if $operator == '>=' or $operator == '<=' {
-				$bound: if($operator == '>=', $min, $max);
-				$dimension: if($operator == '>=', 'min-width', 'max-width');
+				$bound: $max;
+				$dimension: 'max-width';
+				@if $operator == '>=' {
+					$bound: $min;
+					$dimension: 'min-width';
+				}
 				$media: 'screen';
 
 				@if $bound != null {
@@ -50,9 +59,14 @@ $breakpoints: (
 				}
 			}
 			@else if $operator == '>' or $operator == '<' {
-				$bound: if($operator == '>', $max, $min);
-				$dimension: if($operator == '>', 'min-width', 'max-width');
-				$offset: if($operator == '>', 1, -1);
+				$bound: $min;
+				$dimension: 'max-width';
+				$offset: -1;
+				@if $operator == '>' {
+					$bound: $max;
+					$dimension: 'min-width';
+					$offset: 1;
+				}
 				$media: 'screen and (max-width: -1px)';
 
 				@if $bound != null {
@@ -83,7 +97,7 @@ $breakpoints: (
 		@else {
 			$media: $range;
 
-			@if str-slice($range, 1, 1) == '(' {
+			@if string.slice($range, 1, 1) == '(' {
 				$media: 'screen and ' + $range;
 			}
 		}

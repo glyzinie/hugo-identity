@@ -1,3 +1,6 @@
+@use '../libs/breakpoints';
+@use '../libs/functions';
+
 /* Wrapper */
 
 #wrapper {
@@ -8,7 +11,7 @@
 	perspective: 1000px;
 	position: relative;
 	min-height: 100%;
-	padding: _size(element-margin);
+	padding: functions.size(element-margin);
 	z-index: 2;
 
 	> * {
@@ -20,7 +23,7 @@
 		display: block;
 	}
 
-	@include breakpoint('<=xxsmall') {
-		padding: (_size(element-margin) * 0.5);
+	@include breakpoints.breakpoint('<=xxsmall') {
+		padding: (functions.size(element-margin) * 0.5);
 	}
 }
